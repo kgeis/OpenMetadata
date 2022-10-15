@@ -18,7 +18,7 @@ You must have a running deployment of OpenMetadata to use this guide. OpenMetada
 * MySQL as the backing store for all metadata
 * Airflow for metadata ingestion workflows
 
-To deploy OpenMetadata checkout the [deployment guide](/deployment)
+To deploy OpenMetadata, check out the [deployment guide](/deployment)
 
 ### Python (version 3.8.0 or later)
 
@@ -102,7 +102,7 @@ source:
 ```
 The only section you need to modify here is the `serviceName` key. Note that this name needs to be unique across OM platform Test Suite name.
 
-Once you have defined your source configuration you'll need to define te processor configuration. 
+Once you have defined your source configuration you'll need to define the processor configuration. 
 ```yaml
 processor:
   type: "orm-test-runner"
@@ -170,7 +170,7 @@ metadata test -c /path/to/my/config.yaml
 
 ### Schedule Test Suite runs with Airflow
 
-As with the Ingestion or Profiler workflow, you can as well execute a Test Suite directly from Python. We are
+As with the Ingestion or Profiler workflow, you can also execute a Test Suite directly from Python. We are
 going to use Airflow as an example, but any orchestrator would achieve the same goal.
 
 Let's prepare the DAG as usual, but importing a different Workflow class:
@@ -231,7 +231,7 @@ configurations specified above.
 
 ## How to Visualize Test Results
 ### From the Test Suite View
-From the home page click on the Test Suite menu in the left pannel.
+From the home page click on the Test Suite menu in the left panel.
 <Image
     src={"/images/openmetadata/ingestion/workflows/data-quality/test-suite-home-page.png"}
     alt="Test suite home page"
@@ -255,7 +255,7 @@ From there you can select a Test Suite and visualize the results associated with
 ### From a Table Entity
 Navigate to your table and click on the `profiler` tab. From there you'll be able to see test results at the table or column level.
 #### Table Level Test Results
-In the top pannel, click on the white background `Data Quality` button. This will bring you to a summary of all your quality tests at the table level
+In the top panel, click on the white background `Data Quality` button. This will bring you to a summary of all your quality tests at the table level
 <Image
     src={"/images/openmetadata/ingestion/workflows/data-quality/table-results-entity.png"}
     alt="Test suite results table"
@@ -273,14 +273,14 @@ On the profiler page, click on a specific column name. This will bring you to a 
 ## Adding Custom Tests
 While OpenMetadata provides out of the box tests, you may want to write your test results from your own custom quality test suite. This is very easy to do using the API.
 ### Creating a `TestDefinition`
-First, you'll need to create a Test Definition for your test. You can use the following endpoint `/api/v1/testDefinition` using a POST protocol to create your Test Definition. You will need to pass the following data in the body your request at minimum.
+First, you'll need to create a Test Definition for your test. You can use the following endpoint `/api/v1/testDefinition` using the POST method to create your Test Definition. You will need to pass the following data in the body your request at minimum.
 
 ```json
 {
     "description": "<you test definition description>",
     "entityType": "<TABLE or COLUMN>",
     "name": "<your_test_name>",
-    "testPlatforms": ["<any of OpenMetadata,GreatExpectations, DBT, Deequ, Soda, Other>"],
+    "testPlatforms": ["<any of OpenMetadata, GreatExpectations, DBT, Deequ, Soda, Other>"],
     "parameterDefinition": [
       {
         "name": "<name>"
@@ -292,7 +292,7 @@ First, you'll need to create a Test Definition for your test. You can use the fo
 }
 ```
 
-Here is a complete CURL request
+Here is a complete cURL request
 
 ```bash
 curl --request POST 'http://localhost:8585/api/v1/testDefinition' \
@@ -311,7 +311,7 @@ curl --request POST 'http://localhost:8585/api/v1/testDefinition' \
 Make sure to keep the `UUID` from the response as you will need it to create the Test Case.
 
 ### Creating a `TestSuite`
-You'll also need to create a Test Suite for your Test Case -- note that you can also use an existing one if you want to. You can use the following endpoint `/api/v1/testSuite` using a POST protocol to create your Test Definition. You will need to pass the following data in the body your request at minimum.
+You'll also need to create a Test Suite for your Test Case -- note that you can also use an existing one if you want to. You can use the following endpoint `/api/v1/testSuite` using the POST method to create your Test Definition. You will need to pass the following data in the body your request at minimum.
 
 ```json
 {
@@ -335,7 +335,7 @@ Make sure to keep the `UUID` from the response as you will need it to create the
 
 
 ### Creating a `TestCase`
-Once you have your Test Definition created you can create a Test Case -- which is a specification of your Test Definition. You can use the following endpoint `/api/v1/testCase` using a POST protocol to create your Test Case. You will need to pass the following data in the body your request at minimum.
+Once you have your Test Definition created you can create a Test Case -- which is a specification of your Test Definition. You can use the following endpoint `/api/v1/testCase` using the POST method to create your Test Case. You will need to pass the following data in the body your request at minimum.
 
 ```json
 {
@@ -382,7 +382,7 @@ Make sure to keep the `UUID` from the response as you will need it to create the
 
 
 ### Writing `TestCaseResults`
-Once you have your Test Case created you can write your results to it. You can use the following endpoint `/api/v1/testCase/{test FQN}/testCaseResult` using a PUT protocol to add Test Case Results. You will need to pass the following data in the body your request at minimum.
+Once you have your Test Case created you can write your results to it. You can use the following endpoint `/api/v1/testCase/{test FQN}/testCaseResult` using the PUT method to add Test Case Results. You will need to pass the following data in the body your request at minimum.
 
 ```json
 {
@@ -397,7 +397,7 @@ Once you have your Test Case created you can write your results to it. You can u
 }
 ```
 
-Here is a complete CURL request
+Here is a complete cURL request
 
 ```bash
 curl --location --request PUT 'http://localhost:8585/api/v1/testCase/local_redshift.dev.dbt_jaffle.customers.custom_test_Case/testCaseResult' \
